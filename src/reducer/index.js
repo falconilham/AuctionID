@@ -1,8 +1,10 @@
-import { combineReducers } from 'redux'
-import process from './User'
+import { combineReducers } from 'redux';
+import User from './User';
+import Data from './Data';
 
 const rootReducer = combineReducers({
-   process
+  User,
+  Data
  })
  
  export default rootReducer

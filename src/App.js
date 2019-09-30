@@ -10,7 +10,7 @@ export default class App extends Component {
     <Provider store={store}>
       <Router>
         <div id="app">
-              <Route exact path="/" component={Home} />
+          <Route exact path="/" component={Home} />
         </div>
       </Router>
     </Provider>
