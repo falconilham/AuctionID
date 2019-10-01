@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addUserName } from '.././reducer/User';
 import { addItem } from '.././reducer/Data';
-import { bindActionCreators } from 'redux';
-
 
 
 class Home extends Component {
@@ -16,37 +14,68 @@ class Home extends Component {
   }
 
   ChangeUserName(evt){
-    this.setState({
-      [evt.target.name]: evt.target.value
-    })
+    this.props.addUserName(evt.target.value)
   }
   
-  Submit(e){
+  Submit = (e) => {
     e.preventDefault();
-    this.props.addUserName()
+    this.setState({
+      name: this.props.Data.User.username
+    })
   }
 
   render() {
-    console.log(this.props.Data)
-    return (
-      <div className="container">
-        <input type="text" name="name" value={this.state.name} onChange={this.ChangeUserName.bind(this)} />
-        <input type="submit" value="Submit" onClick={this.Submit } />
-        <h1>{this.state.name}</h1>
+    return(
+      <div className="container-fluid">
+        <div className="container main-body">
+          <div className="header">
+            <div className="logo">
+              <h1>Logo</h1>
+            </div>
+            <div className="navigation">
+              <div className="right-nav">
+                <div>
+                  <h3>Home</h3>
+                </div>
+                <div>
+                  <h3>Sell</h3>
+                </div>
+              </div>
+              <div className="left-nav">
+                <div>
+                  <h3>Register</h3>
+                </div>
+                <div>
+                  <h3>Login</h3>
+                </div>
+              </div>
+            </div>
+            <div className="search">
+
+            </div>
+          </div>
+          <div className="body">
+            <div>asdasd</div>
+            <div>asdasd</div>
+            <div>asdasd</div>
+            <div>asdasd</div>
+            <div>asdasd</div>
+          </div>
+        </div>
       </div>
     );
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators ({
+const mapDispatchToProps = (dispatch) => {
+  return {
     addUserName: username => {
        dispatch(addUserName(username))
     },
     addItem: data => {
       dispatch(addItem(data))
     }
-  })
+  }
 }
 
 const mapStateToProps = (state) => {

@@ -1,14 +1,35 @@
 $primaryColor: #BADA55;
 $secondaryColor: blue;
+$PrimaryDisplay: grid;
+$SecondaryDisplay: flex;
 
+
+.main-body{
+    display: $PrimaryDisplay;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr
+}
 .header{
-    background-color: $primaryColor
+    display: $PrimaryDisplay;
+    grid-template-rows: 1fr 1fr 1fr;
+    height: 186px;
+    background-color: #00b6d8;
+    color: white;
+}
+.logo {
+    display: $PrimaryDisplay;
+    justify-items: center
+}
+.navigation{
+    display: $PrimaryDisplay;
+    grid-template-columns: 1fr 1fr
+}
+.right-nav{
+    display: $PrimaryDisplay;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 5px
 }
 .body{
-    background-color: $secondaryColor
-}
-.container-fluid{
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 2fr 1fr;
+    display: $PrimaryDisplay;
+    grid-template-columns: 1fr 1fr 1fr 1fr
 }
