@@ -10,7 +10,7 @@ $SecondaryDisplay: flex;
 }
 .header{
     display: $PrimaryDisplay;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
     height: 186px;
     background-color: #00b6d8;
     color: white;
@@ -78,5 +78,9 @@ $SecondaryDisplay: flex;
     }
     button:hover{
         cursor: pointer;
+    }
+    .card{
+        display: grid;
+        grid-template-rows: 1fr 10%
     }
 }

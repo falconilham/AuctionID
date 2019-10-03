@@ -7,17 +7,26 @@ import axios from 'axios';
 
 
 class Home extends Component {
- 
+  constructor(){
+    super();
+    this.state = {
+      page : 1
+    }
+  }
 
   getData = async () => {
     const { addItem, Data } = this.props
+    let { page } = this.state
     let data_handler = [...Data]
-    let URL = "https://jsonplaceholder.typicode.com/photos"
-    axios.get(URL).then(async res => {
+    let URL = "https://picsum.photos/v2/list?page="+page+"&limit=10"
+    await axios.get(URL).then(async res => {
       for(let item = 0; item < 10; item++){
         data_handler.push(res.data[item])
       }
       addItem(data_handler)
+    })
+    this.setState({
+      page: page + 1
     })
   }
 
@@ -41,8 +50,8 @@ class Home extends Component {
           {(Data).map((item, i) => {
             return(
               <div className="col-sm card" key={i}>
-                <img src={item.url} alt={i}/>
-                <div>{item.title}</div>
+                <img src={item.download_url} alt={i}/>
+                <div>{item.author}</div>
               </div>
             )
           })}
