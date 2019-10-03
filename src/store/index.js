@@ -1,5 +1,5 @@
 import { configureStore, getDefaultMiddleware } from 'redux-starter-kit'
-import rootReducer from './../reducer'
+import rootReducer from '../reducer/'
 
 export function configureAppStore(preloadedState) {
   const store = configureStore({

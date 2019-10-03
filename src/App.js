@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import store from './store';
-import Home from './Component/Home';
+import Home from './component/Home';
 
 export default class App extends Component {
   render() {

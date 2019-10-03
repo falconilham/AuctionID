@@ -9,31 +9,23 @@ export function makeActionCreator(type, ...argNames) {
 }
 
 const INITIAL_STATE = {
-    Data: []
+    language: "english"
 }
 
 
-function handleAddItem(state, payload){
+function handleLanguage(state, payload){
     return {
        ...state,
-       Data: payload.item
+       language: payload.item
     }
 }
 
-function handleDeleteAllItem(state){
-    return {
-       ...state,
-       Data: []
-    }
-}
 
 const ACTION = {
-    'AUCTION/ADD_ITEM': handleAddItem,
-    'AUCTION/DELETE_ITEM': handleDeleteAllItem
+    'AUCTION/LANGUAGE': handleLanguage
 }
 
-export const addItem = makeActionCreator('AUCTION/ADD_ITEM', 'item')
-export const deleteAllItem = makeActionCreator('AUCTION/DELETE_ITEM')
+export const bahasa = makeActionCreator('AUCTION/LANGUAGE', 'item')
 
 export default function users(state = INITIAL_STATE, action) {
     const handler = ACTION[action.type];

@@ -7,7 +7,6 @@ $SecondaryDisplay: flex;
 .main-body{
     display: $PrimaryDisplay;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr
 }
 .header{
     display: $PrimaryDisplay;
@@ -15,6 +14,7 @@ $SecondaryDisplay: flex;
     height: 186px;
     background-color: #00b6d8;
     color: white;
+    padding: 0px 17px;
 }
 .logo {
     display: $PrimaryDisplay;
@@ -26,10 +26,57 @@ $SecondaryDisplay: flex;
 }
 .right-nav{
     display: $PrimaryDisplay;
-    grid-template-columns: 1fr 1fr;
-    grid-column-gap: 5px
+    grid-template-columns: 25% 25%;
+    justify-items: center;
+    align-items: center;
+    grid-column-gap: 5px;
+    div{
+        cursor: pointer;
+        padding: 15px
+    }
 }
+.left-nav{
+    display: $PrimaryDisplay;
+    grid-template-columns: 25% 25%;
+    justify-items: center;
+    justify-content: end;
+    align-items: center;
+    grid-column-gap: 5px;
+    div{
+        cursor: pointer;
+    }
+}
+.right-nav, .left-nav{
+    div:hover{
+        background-color: #055e6f
+    }
+    
+}
+.search{
+    display: flex;
+    justify-content: center;
+    input, button{
+        align-self: center;
+        justify-self: center
+    }
+}
+
 .body{
     display: $PrimaryDisplay;
-    grid-template-columns: 1fr 1fr 1fr 1fr
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 10px;
+    div{
+        display: grid;
+        align-items: center;
+        img{
+            max-width: 100%;
+        }
+    }
+    button{
+        grid-column: span 3;
+        margin-top: 10px
+    }
+    button:hover{
+        cursor: pointer;
+    }
 }

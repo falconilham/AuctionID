@@ -9,7 +9,7 @@ export function makeActionCreator(type, ...argNames) {
 }
  
 const INITIAL_STATE = {
-   username: "ilham",
+   username: "",
 }
 
 function handleAddUsername(state, payload){
