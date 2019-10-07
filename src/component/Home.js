@@ -10,11 +10,15 @@ class Home extends Component {
   constructor(){
     super();
     this.state = {
-      page : 1
+      page : 1,
+      isLoading: false
     }
   }
 
   getData = async () => {
+    this.setState({
+      isLoading: !this.state.isLoading
+    })
     const { addItem, Data } = this.props
     let { page } = this.state
     let data_handler = [...Data]
@@ -26,7 +30,8 @@ class Home extends Component {
       addItem(data_handler)
     })
     this.setState({
-      page: page + 1
+      page: page + 1,
+      isLoading: !this.state.isLoading
     })
   }
 
@@ -50,12 +55,28 @@ class Home extends Component {
           {(Data).map((item, i) => {
             return(
               <div className="col-sm card" key={i}>
-                <img src={item.download_url} alt={i}/>
+                <div>
+                  <img src={item.download_url} alt={i}/>
+                </div>
                 <div>{item.author}</div>
+                <div className="detail-item">
+                  <div className="price-item">
+                    <p>Current Bid</p>
+                    Rp<span>20.000.000</span>
+                  </div>
+                  <div className="bid-timer">
+                    <p>Time Remaining</p>
+                    <span>7 Days</span>
+                  </div>
+                </div>
               </div>
             )
           })}
-          <button onClick={this.getData.bind(this)} type="button" className="btn btn-light">More Data</button>
+          {this.state.isLoading === false ? (
+            <button onClick={this.getData.bind(this)} type="button" className="btn btn-light">More Data</button>
+          ):(
+            <button disabled type="button" className="btn btn-light">Loading</button>
+          )}
         </div>
       </div>
     );

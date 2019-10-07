@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {BrowserRouter as outer, Link, NavLink, Redirect, Prompt} from 'react-router-dom';
 
 export default class MainNavigation extends Component {
   constructor(){
@@ -6,14 +7,27 @@ export default class MainNavigation extends Component {
     this.state = {
       english:{
         left : [
-          "Home",
-          "Sell"
+          {
+            name: "Home",
+            link: "/"
+          },
+          {
+            name: "Sell",
+            link: ""
+          }
         ],
         right:[
-          "Register",
-          "Login"
+          {
+            name: "Register",
+            link : `/register`
+          },
+          {
+            name: "Login",
+            link : '/login'
+          }
         ]
-      }
+      },
+      username: ""
     }
   }
 
@@ -27,18 +41,22 @@ export default class MainNavigation extends Component {
           <div className="right-nav">
             {this.state.english.left.map((item, i) => {
               return (
-                <div key={i}>
-                  {item}
-                </div>
+                <Link to={item.link} style={{ textDecoration: 'none', color: "white" }}>
+                  <div key={i}>
+                      {item.name}
+                  </div>
+                </Link>
               )
             })}
           </div>
           <div className="left-nav">
             {this.state.english.right.map((item, i) => {
                 return (
-                  <div key={i}>
-                    {item}
-                  </div>
+                  <Link to={item.link} style={{ textDecoration: 'none', color: "white" }}>
+                    <div key={i}>
+                        {item.name}
+                    </div>
+                  </Link>
                 )
             })}
           </div>
