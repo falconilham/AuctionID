@@ -31,18 +31,8 @@ export default class Register extends Component {
                     <div className="form-item">
                         <span>Confirm Password</span><input className="form-control" type="text" placeholder="Confirm Password" />
                     </div>
-                </div>
-            </div>
-            <div className="card">
-                <div className="card-header">
-                    <span>Contact Information</span>
-                </div>
-                <div className="card-body form">
                     <div className="form-item">
                         <span>Email</span><input className="form-control" type="email" placeholder="Email" />
-                    </div>
-                    <div className="form-item">
-                        <span>Confirm Email</span><input className="form-control" type="email" placeholder="Confirm Email" />
                     </div>
                 </div>
             </div>
@@ -59,6 +49,7 @@ export default class Register extends Component {
                     </div>
                 </div>
             </div>
+            <button type="button" className="btn btn-primary">Register Now</button>
         </div>
     );
   }

@@ -13,7 +13,7 @@ export default class MainNavigation extends Component {
           },
           {
             name: "Sell",
-            link: ""
+            link: "/sell"
           }
         ],
         right:[
@@ -62,7 +62,7 @@ export default class MainNavigation extends Component {
           </div>
         </div>
         <div className="search">
-          <input className="form-control col-sm-3" type="text" placeholder="Default input" />
+          <input className="form-control col-sm-3" type="text" placeholder="e.g Whatever is it" />
           <button type="button" className="btn btn-light">Search</button>
         </div>
       </div>  

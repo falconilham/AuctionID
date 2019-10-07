@@ -96,3 +96,22 @@ $SecondaryDisplay: flex;
     text-align: center;
     padding: 10px 10px
 }
+.form-item{
+    display: grid;
+    grid-template-columns: 20% 1fr;
+    text-align: left
+}
+.login-form{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 10px;
+}
+.btn{
+    cursor: pointer;
+}
+@media only screen and (max-width: 600px) {
+    .body{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+}
