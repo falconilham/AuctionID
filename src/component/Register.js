@@ -1,38 +1,51 @@
 import React, { Component } from 'react';
 import Navigator from '.././navigation';
+import { Template } from './lang/Register';
 
 export default class Register extends Component {
     constructor(){
         super()
         this.state = {
-            username: "",
-            password: "",
             confirm: "",
-            email: ""
+            data: {
+                username: "",
+                password: "",
+                email: ""
+            },
+            template: Object.assign({}, Template)
         }
         this.inputHandler.bind(this);
         this.submit.bind(this);
     }
 
-    inputHandler = (e) => {    
-        this.setState({
-            [e.target.name]: e.target.value
-        })
+    inputHandler = (e) => {
+        let value = e.target.value;
+        let name = e.target.name;
+        if(name === "confirm"){
+            this.setState({
+                [name]:value
+            })
+        }else{    
+            this.setState(prevState => ({
+                data: {
+                    ...prevState.data,
+                    [name]: value
+                }
+            }))
+        }
     }
 
     submit = () => {
-        const {username, password, confirm, email} = this.state
-        if(password != confirm){
-            alert("confirm tidak sama dengan password")
-        }else if(email){
-
+        const {data, confirm} = this.state
+        if(data.password !== confirm){
+            alert("tidak sama")
         }else{
-            alert("ok")
+            console.log(data)
         }
     }
-    
 
     render() {
+        const {template} = this.state
         return (
             <div className="container main-body">
                 <Navigator />
@@ -44,22 +57,23 @@ export default class Register extends Component {
                         <span>Login Information</span>
                     </div>
                     <div className="card-body form">
-                        <div className="form-item">
-                            <span>Username</span>
-                            <input className="form-control" onChange={this.inputHandler} name="username" type="text" placeholder="Username" required/>
-                        </div>
-                        <div className="form-item">
-                            <span>Password</span>
-                            <input className="form-control" onChange={this.inputHandler} name="password" type="text" placeholder="Password" required/>
-                        </div>
-                        <div className="form-item">
-                            <span>Confirm Password</span>
-                            <input className="form-control" onChange={this.inputHandler} name="confirm" type="text" placeholder="Confirm Password" required/>
-                        </div>
-                        <div className="form-item">
-                            <span>Email</span>
-                            <input className="form-control" onChange={this.inputHandler} name="email" type="email" placeholder="Email" required/>
-                        </div>
+                        {template.login.map((item, i) => {
+                            if(item.name === "email"){
+                                return(
+                                    <div className="form-item" key={i}>
+                                        <span>{item.label}</span>
+                                        <input className="form-control" onChange={this.inputHandler} name={item.name} type={item.name} placeholder="Email" required/>
+                                    </div>
+                                )
+                            }else{
+                                return(
+                                    <div className="form-item" key={i}>
+                                        <span>{item.label}</span>
+                                        <input className="form-control" onChange={this.inputHandler} name={item.name} type="text" placeholder={item.name} required/>
+                                    </div>  
+                                )
+                            }
+                        })}        
                     </div>
                 </div>
                 <div className="card">
@@ -67,12 +81,14 @@ export default class Register extends Component {
                         <span>Additional Information</span>
                     </div>
                     <div className="card-body form">
-                        <div className="form-item">
-                            <span>First Name</span><input className="form-control" type="text" placeholder="First Name" />
-                        </div>
-                        <div className="form-item">
-                            <span>Last Name</span><input className="form-control" type="text" placeholder="Last Name" />
-                        </div>
+                        {template.additional.map((item, i) => {
+                            return(
+                                <div className="form-item" key={i}>
+                                    <span>{item.label}</span>
+                                    <input className="form-control" name={item.name} type="text" placeholder={item.label} />
+                                </div>  
+                            )
+                        })}
                     </div>
                 </div>
                 <button type="button" onClick={this.submit} className="btn btn-primary">Register Now</button>

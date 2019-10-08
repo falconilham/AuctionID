@@ -29,8 +29,8 @@ class Home extends Component {
     let data_handler = [...Data]
     let URL = "https://picsum.photos/v2/list?page="+page+"&limit=10"
     await axios.get(URL).then(async res => {
-      console.log(res.length)
-      for(let item = 0; item < 10; item++){
+      console.log(res.data.length)
+      for(let item = 0; item < res.data.length; item++){
         data_handler.push(res.data[item])
       }
       addItem(data_handler)
@@ -79,7 +79,7 @@ class Home extends Component {
             )
           })}
           {this.state.isLoading === false ? (
-            <button onClick={this.getData.bind(this)} type="button" className="btn btn-light">More Item</button>
+            <button onClick={this.getData} type="button" className="btn btn-light">More Item</button>
           ):(
             <button disabled type="button" className="btn btn-light">Loading</button>
           )}
