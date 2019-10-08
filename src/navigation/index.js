@@ -41,8 +41,8 @@ export default class MainNavigation extends Component {
           <div className="right-nav">
             {this.state.english.left.map((item, i) => {
               return (
-                <Link to={item.link} style={{ textDecoration: 'none', color: "white" }}>
-                  <div key={i}>
+                <Link to={item.link} style={{ textDecoration: 'none', color: "white" }} key={i}>
+                  <div>
                       {item.name}
                   </div>
                 </Link>
@@ -52,8 +52,8 @@ export default class MainNavigation extends Component {
           <div className="left-nav">
             {this.state.english.right.map((item, i) => {
                 return (
-                  <Link to={item.link} style={{ textDecoration: 'none', color: "white" }}>
-                    <div key={i}>
+                  <Link to={item.link} style={{ textDecoration: 'none', color: "white" }} key={i}>
+                    <div>
                         {item.name}
                     </div>
                   </Link>
