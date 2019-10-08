@@ -19,6 +19,7 @@ class Home extends Component {
   componentDidMount = () =>{
     this.getData()
   }
+  
   getData = async () => {
     this.setState({
       isLoading: !this.state.isLoading
