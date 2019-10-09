@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {BrowserRouter as outer, Link, NavLink, Redirect, Prompt} from 'react-router-dom';
+import {BrowserRouter as  Route, Link} from 'react-router-dom';
 
 export default class MainNavigation extends Component {
   constructor(){

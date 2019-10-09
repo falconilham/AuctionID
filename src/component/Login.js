@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Navigator from '.././navigation';
-import {BrowserRouter as outer, Link, NavLink, Redirect, Prompt} from 'react-router-dom';
+import {BrowserRouter as Link, Redirect } from 'react-router-dom';
+import { Template } from './lang/Login';
+import firebase from ".././config/";
 
 export default class Login extends Component {
     constructor(){
@@ -28,7 +30,14 @@ export default class Login extends Component {
         }else if(password === ""){
             alert("Password cant be empty")
         }else{
-            alert("ok")
+            firebase.
+            auth().signInWithEmailAndPassword(username, password)
+            .then(() => 
+                this.props.history.push('/')
+            ).catch((error) => 
+                alert("Email Atau Password Salah")
+            )
+
         }
     }
 
@@ -43,14 +52,14 @@ export default class Login extends Component {
                                 Login
                             </div>
                             <div className="card-body form">
-                                <div className="form-item">
-                                    <span>Username</span>
-                                    <input className="form-control" name="username" onChange={this.inputHandler} type="text" placeholder="Username" />
-                                </div>
-                                <div className="form-item">
-                                    <span>Password</span>
-                                    <input className="form-control" name="password" onChange={this.inputHandler} type="text" placeholder="Password" />
-                                </div>
+                                {Template.map((item, i) => {
+                                    return(
+                                        <div className="form-item" key={i}>
+                                            <span>{item.label}</span>
+                                            <input className="form-control" name={item.name} onChange={this.inputHandler} type="text" placeholder={item.label} />
+                                        </div>
+                                    )   
+                                })}
                                 <button type="button" onClick={this.checkData} className="btn btn-success">Login</button>
                             </div>
                         </div>
