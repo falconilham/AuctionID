@@ -1,19 +1,23 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { addUserName } from '../reducer/User';
 import Navigator from '.././navigation';
+import FacebookLogin from 'react-facebook-login';
+import GoogleLogin from 'react-google-login';
 import {BrowserRouter as Link, Redirect } from 'react-router-dom';
 import { Template } from './lang/Login';
-import firebase from ".././config/";
+import firebase from ".././config/";      
 
-export default class Login extends Component {
-    constructor(){
-        super()
+class Login extends Component {
+    constructor(props){
+        super(props)
         this.state = {
             username: "",
             password: ""
         }
         this.checkData.bind(this);
         this.inputHandler.bind(this);
-    }
+    }     
 
     inputHandler = (e) => {
         this.setState({
@@ -22,6 +26,7 @@ export default class Login extends Component {
     }
 
     checkData = () => {
+        const user = this.props.addUserName
         const { username, password } = this.state
         if(username === "" && password === ""){
             alert("Username & Password cant be empty")
@@ -32,16 +37,22 @@ export default class Login extends Component {
         }else{
             firebase.
             auth().signInWithEmailAndPassword(username, password)
-            .then(() => 
+            .then(() => {
+                user(username);
                 this.props.history.push('/')
+            }
             ).catch((error) => 
                 alert("Email Atau Password Salah")
             )
-
         }
     }
 
     render() {
+        const responseGoogle = (response) => {
+            console.log("google console");
+            console.log(response);
+        }
+        console.log(this.props)
         return (
             <div className="container main-body">
                 <Navigator />
@@ -62,6 +73,14 @@ export default class Login extends Component {
                                 })}
                                 <button type="button" onClick={this.checkData} className="btn btn-success">Login</button>
                             </div>
+                            <center><h5>OR</h5></center>
+                            <div className="SosMed">
+                                <GoogleLogin
+                                    clientId="116312265922-ifu71n2jbp6mrl1751cla1t3vuldfedn.apps.googleusercontent.com"
+                                    onSuccess={responseGoogle}
+                                    />
+                                <FacebookLogin />
+                            </div>
                         </div>
                         <div className="register-link">
                             <h2>Not registered yet ?</h2>
@@ -74,3 +93,18 @@ export default class Login extends Component {
         );
     }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addUserName: username => {
+       dispatch(addUserName(username))
+    }
+  }
+}
+const mapStateToProps = (state) => {
+  return {
+    User: state.User.username
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

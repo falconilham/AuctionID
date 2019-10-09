@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {BrowserRouter as  Route, Link} from 'react-router-dom';
+import { connect } from 'react-redux';
 
-export default class MainNavigation extends Component {
+class MainNavigation extends Component {
   constructor(){
     super();
     this.state = {
@@ -31,7 +32,12 @@ export default class MainNavigation extends Component {
     }
   }
 
+  componentDidmount = () => {
+    console.log(this.props.User)
+  }
+
   render() {
+    const {User} = this.props
     return (
       <div className="header">
         <div className="logo">
@@ -49,17 +55,23 @@ export default class MainNavigation extends Component {
               )
             })}
           </div>
-          <div className="left-nav">
-            {this.state.english.right.map((item, i) => {
-                return (
-                  <Link to={item.link} style={{ textDecoration: 'none', color: "white" }} key={i}>
-                    <div>
-                        {item.name}
-                    </div>
-                  </Link>
-                )
-            })}
-          </div>
+            {User === "" ? (
+              <div className="left-nav">
+                {this.state.english.right.map((item, i) => {
+                  return (
+                    <Link to={item.link} style={{ textDecoration: 'none', color: "white" }} key={i}>
+                      <div>
+                          {item.name}
+                      </div>
+                    </Link>
+                  )
+                })}
+              </div>
+            ):(
+              <div className="left-nav">
+                {User}
+              </div>
+            )}
         </div>
         <div className="search">
           <input className="form-control col-sm-3" type="text" placeholder="e.g Whatever is it" />
@@ -69,3 +81,11 @@ export default class MainNavigation extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    User: state.User.username
+  }
+}
+
+export default connect(mapStateToProps)(MainNavigation)
