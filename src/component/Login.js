@@ -84,8 +84,8 @@ class Login extends Component {
                         </div>
                         <div className="register-link">
                             <h2>Not registered yet ?</h2>
-                            <p>If you are not already a registered member, please 
-                            <Link to={'/register'} style={{ textDecoration: 'none' }}> Register Now</Link></p>
+                            <p>If you are not already a registered member, please</p> 
+                            <p><Link to={'/register'} style={{ textDecoration: 'none' }}> Register Now</Link></p>
                         </div>
                     </div>
                 </div>

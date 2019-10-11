@@ -1,7 +1,11 @@
+@import '~bootstrap/scss/bootstrap.scss';
+
+
 $primaryColor: #BADA55;
 $secondaryColor: blue;
 $PrimaryDisplay: grid;
 $SecondaryDisplay: flex;
+$breakpoint-tablet: 600px;
 
 .main-body{
     display: $PrimaryDisplay;
@@ -113,9 +117,26 @@ $SecondaryDisplay: flex;
     display: grid;
     grid-template-columns: 1fr 1fr
 }
-@media only screen and (max-width: 600px) {
+@media (max-width: 768px){
     .body{
         display: grid;
         grid-template-columns: 1fr 1fr;
+        button{
+           grid-column: span 2; 
+        }
+        .card{
+            display: flex;
+        }
+        div{
+            align-self: end;    
+        }
+    }
+    .price-item, .bid-timer{
+        p{
+            display: none;
+        }
+    }
+    .detail-item{
+        display: grid;
     }
 }
