@@ -117,6 +117,14 @@ $breakpoint-tablet: 600px;
     display: grid;
     grid-template-columns: 1fr 1fr
 }
+.body-sells{
+    display: grid;
+    grid-row-gap: 15px
+}
+.card-body{
+    display: grid;
+    grid-row-gap: 15px
+}
 @media (max-width: 768px){
     .body{
         display: grid;
@@ -138,5 +146,8 @@ $breakpoint-tablet: 600px;
     }
     .detail-item{
         display: grid;
+    }
+    .right-nav, .left-nav{
+        grid-template-columns: 1fr 1fr
     }
 }

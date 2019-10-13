@@ -6,7 +6,6 @@ import Home from './component/Home';
 import Register from './component/Register';
 import Login from './component/Login';
 import Sell from './component/Sell';
-import { TextBlock, MediaBlock, TextRow, RectShape, RoundShape } from 'react-placeholder';
 
 export default class App extends Component {
   render() {

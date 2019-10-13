@@ -6,6 +6,7 @@ import Navigator from '.././navigation';
 import axios from 'axios';
 import { Modal } from 'react-bootstrap';
 import { TextBlock, MediaBlock, TextRow, RectShape, RoundShape } from 'react-placeholder';
+import ReactPlaceholder from 'react-placeholder';
 
 class Home extends Component {
   constructor(){
@@ -18,7 +19,7 @@ class Home extends Component {
     this.getData.bind(this)
   }
 
-  componentDidMount = () =>{
+  componentDidMount = () => {
     this.getData()
   }
   
@@ -56,7 +57,15 @@ class Home extends Component {
 
   render(){
     const { Data } = this.props
-    const { show } = this.state
+    const { show, isLoading } = this.state
+
+    const awesomePlaceholder = (
+      <div className='my-awesome-placeholder'>
+        <RectShape color='blue' style={{width: 30, height: 80}}/>
+        <TextBlock rows={7} color='yellow'/>
+      </div>
+    );
+
     return(
       <div className="container main-body">
         <Navigator />
