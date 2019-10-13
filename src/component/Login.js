@@ -25,7 +25,7 @@ class Login extends Component {
         })
     }
 
-    checkData = () => {
+    checkData = async() => {
         const user = this.props.addUserName
         const { username, password } = this.state
         if(username === "" && password === ""){
@@ -35,15 +35,16 @@ class Login extends Component {
         }else if(password === ""){
             alert("Password cant be empty")
         }else{
-            firebase.
-            auth().signInWithEmailAndPassword(username, password)
-            .then(() => {
-                user(username);
-                this.props.history.push('/')
+            try {
+                let Signin = await firebase.auth().signInWithEmailAndPassword(username, password)
+                .then(() => {
+                    user(username);
+                    this.props.history.push('/')
+                }) 
             }
-            ).catch((error) => 
+            catch{
                 alert("Email Atau Password Salah")
-            )
+            }
         }
     }
 

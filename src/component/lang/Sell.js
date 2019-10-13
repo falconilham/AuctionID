@@ -18,6 +18,11 @@ export const listing = [
 
 export const additional =[
 	{
+		name: "name",
+		label: "Name of Product",
+		type: "text"
+	},
+	{
 		name: "price",
 		label: "Starting Price",
 		type: "number"

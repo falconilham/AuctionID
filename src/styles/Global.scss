@@ -150,4 +150,10 @@ $breakpoint-tablet: 600px;
     .right-nav, .left-nav{
         grid-template-columns: 1fr 1fr
     }
+    .form-item{
+        grid-template-columns: 1fr
+    }
+    .login-form{
+        grid-template-columns: 1fr; 
+    }
 }

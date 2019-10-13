@@ -4,9 +4,9 @@ import { addUserName } from '../reducer/User';
 import { addItem } from '../reducer/Data';
 import Navigator from '.././navigation';
 import axios from 'axios';
-import { Modal } from 'react-bootstrap';
-import { TextBlock, MediaBlock, TextRow, RectShape, RoundShape } from 'react-placeholder';
-import ReactPlaceholder from 'react-placeholder';
+//import { Modal } from 'react-bootstrap';
+//import { TextBlock, MediaBlock, TextRow, RectShape, RoundShape } from 'react-placeholder';
+//import ReactPlaceholder from 'react-placeholder';
 
 class Home extends Component {
   constructor(){
@@ -57,14 +57,6 @@ class Home extends Component {
 
   render(){
     const { Data } = this.props
-    const { show, isLoading } = this.state
-
-    const awesomePlaceholder = (
-      <div className='my-awesome-placeholder'>
-        <RectShape color='blue' style={{width: 30, height: 80}}/>
-        <TextBlock rows={7} color='yellow'/>
-      </div>
-    );
 
     return(
       <div className="container main-body">
