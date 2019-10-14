@@ -24,14 +24,15 @@ class Sell extends Component {
 
 	componentDidMount = () =>{
 		const {User} = this.props
-		/*	if(User === ""){
-				alert("You Have to login")
-				this.props.history.push('/login'); 
-			}
-		*/
+		if(User === ""){
+			alert("You Have to login")
+			this.props.history.push('/login'); 
+		}
+		
 	}
 
 	handler = (e) => {
+		e.preventdefault();
 		this.setState({
 			[e.target.name]: e.target.value
 		})

@@ -4,6 +4,7 @@ import { addUserName } from '../reducer/User';
 import { addItem } from '../reducer/Data';
 import Navigator from '.././navigation';
 import axios from 'axios';
+import * as admin from "firebase-admin";
 //import { Modal } from 'react-bootstrap';
 //import { TextBlock, MediaBlock, TextRow, RectShape, RoundShape } from 'react-placeholder';
 //import ReactPlaceholder from 'react-placeholder';
@@ -31,13 +32,27 @@ class Home extends Component {
     let { page } = this.state
     let data_handler = [...Data]
     let URL = "https://picsum.photos/v2/list?page="+page+"&limit=10"
-    await axios.get(URL).then(async res => {
+    admin.initializeApp({
+      credential: admin.credential.applicationDefault()
+    });
+    var db = admin.firestore();
+    var productRef = db.collection('products');
+    var allProducts = productRef.get()
+    .then(snapshot => {
+        snapshot.forEach(doc => {
+            console.log(doc.id, '=>', doc.data());
+        });
+    })
+    .catch(err => {
+        console.log('Error getting documents', err);
+    });
+    /* await axios.get(URL).then(async res => {
       console.log(res.data.length)
       for(let item = 0; item < res.data.length; item++){
         data_handler.push(res.data[item])
       }
       addItem(data_handler)
-    })
+    }) */ 
     this.setState({
       page: page + 1,
       isLoading: !this.state.isLoading
