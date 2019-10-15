@@ -3,7 +3,7 @@ import Navigator from '.././navigation';
 import { connect } from 'react-redux';
 import { addUserName } from '../reducer/User';
 import { listing, additional } from './lang/Sell';
-import firebase from ".././config/"; 
+import {Firebase, Storage} from ".././config/"; 
 
 class Sell extends Component {
 	constructor(){
@@ -20,6 +20,7 @@ class Sell extends Component {
 		}
 		this.handler.bind(this);
 		this.checkData.bind(this);
+		this.uploadImage.bind(this);
 	}
 
 	componentDidMount = () =>{
@@ -32,17 +33,38 @@ class Sell extends Component {
 	}
 
 	handler = (e) => {
-		e.preventdefault();
 		this.setState({
 			[e.target.name]: e.target.value
 		})
 	}
 
+	uploadImage = () => {
+		const {image} = this.state;
+		const uploadTask = Storage.ref(`images/${image}`).put(image);
+		uploadTask.on('state_changed',
+		(snapshot) => {
+        // progrss function ....
+	        const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+	        this.setState({progress});
+	        return true
+      	},
+		(error) => {
+		   // error function ....
+			return false
+		},
+		() => {
+        // complete function ....
+	        Storage.ref('images').child(image.name).getDownloadURL().then(url => {
+	            console.log(url);
+	        })
+    	}); 
+	}
+
 	checkData = async () => {
 		let data = this.state;
-		const db = firebase.firestore();
+		const db = Firebase.firestore();
 		try{
-			const userRef = db.collection("products").add({
+			db.collection("products").add({
 				username : data.username,
 				name : data.name,
 				price: data.price,
@@ -52,14 +74,15 @@ class Sell extends Component {
 				region: data.region,
 				type: data.type
 			}).then(() => {
-				this.props.history.push('/')
-				console.log("Success")
+				if(this.uploadImage){
+					this.props.history.push('/')
+				}else{
+					alert("error")
+				}
 			});
 		}catch{
 			alert("Email Atau Password Salah")
         }
-		
-		
 	}
 
 	render() {

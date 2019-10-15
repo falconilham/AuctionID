@@ -2,11 +2,13 @@ export const Template =
 [
     {
         name: "username",
-        label: "Username"
+        label: "Username",
+        type: "text"
     },
     {
         name: "password",
-        label: "Password"
+        label: "Password",
+        type: "password"
     }
 ]
  

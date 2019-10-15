@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addUserName } from '../reducer/User';
 import { addItem } from '../reducer/Data';
-import Navigator from '.././navigation';
-import axios from 'axios';
-import Firebase from ".././config/"; 
+import Navigator from '.././navigation'; 
 import * as firebase from "firebase";
 //import { Modal } from 'react-bootstrap';
 //import { TextBlock, MediaBlock, TextRow, RectShape, RoundShape } from 'react-placeholder';
@@ -22,21 +20,23 @@ class Home extends Component {
   }
 
   componentDidMount = () => {
-    this.getData()
+    const { Data } = this.props;
+    if(Data.length === 0){
+      this.getData()
+    }
   }
   
   getData = async () => {
+    const { addItem, Data } = this.props
     this.setState({
       isLoading: !this.state.isLoading
     })
-    const { addItem, Data } = this.props
     let { page } = this.state
     let data_handler = [...Data]
     await firebase.firestore().collection('products').get()
       .then(querySnapshot => {
         querySnapshot.docs.forEach(doc => {
         data_handler.push(doc.data());
-        console.log(data_handler)
       });
         addItem(data_handler)
     });

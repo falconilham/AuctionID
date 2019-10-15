@@ -4,9 +4,10 @@ import { addUserName } from '../reducer/User';
 import Navigator from '.././navigation';
 import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
-import {BrowserRouter as Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Template } from './lang/Login';
-import firebase from ".././config/";      
+//import {Firebase} from ".././config/";
+import { Firebase } from '.././config'  
 
 class Login extends Component {
     constructor(props){
@@ -36,7 +37,7 @@ class Login extends Component {
             alert("Password cant be empty")
         }else{
             try {
-                let Signin = await firebase.auth().signInWithEmailAndPassword(username, password)
+                await Firebase.auth().signInWithEmailAndPassword(username, password)
                 .then(() => {
                     user(username);
                     this.props.history.push('/')
@@ -49,11 +50,6 @@ class Login extends Component {
     }
 
     render() {
-        const responseGoogle = (response) => {
-            console.log("google console");
-            console.log(response);
-        }
-        console.log(this.props)
         return (
             <div className="container main-body">
                 <Navigator />
@@ -68,7 +64,7 @@ class Login extends Component {
                                     return(
                                         <div className="form-item" key={i}>
                                             <span>{item.label}</span>
-                                            <input className="form-control" name={item.name} onChange={this.inputHandler} type="text" placeholder={item.label} />
+                                            <input className="form-control" name={item.name} onChange={this.inputHandler} type={item.type} placeholder={item.label} />
                                         </div>
                                     )   
                                 })}
@@ -78,7 +74,6 @@ class Login extends Component {
                             <div className="SosMed">
                                 <GoogleLogin
                                     clientId="116312265922-ifu71n2jbp6mrl1751cla1t3vuldfedn.apps.googleusercontent.com"
-                                    onSuccess={responseGoogle}
                                     />
                                 <FacebookLogin />
                             </div>
