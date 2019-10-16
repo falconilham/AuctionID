@@ -117,7 +117,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   return {
     Data: state.Data.Data,
-    User: state.User.username
+    User: state.User.username.name
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

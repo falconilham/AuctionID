@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Navigator from '.././navigation';
 import { Template } from './lang/Register';
+import {Firebase} from ".././config/";
 
 export default class Register extends Component {
     constructor(){
@@ -10,7 +11,9 @@ export default class Register extends Component {
             data: {
                 username: "",
                 password: "",
-                email: ""
+                email: "",
+                first: "",
+                last:""
             },
             template: Object.assign({}, Template)
         }
@@ -20,6 +23,7 @@ export default class Register extends Component {
 
     inputHandler = (e) => {
         let value = e.target.value;
+        let image = document.getElementById("image").files[0];
         let name = e.target.name;
         if(name === "confirm"){
             this.setState({
@@ -35,14 +39,27 @@ export default class Register extends Component {
         }
     }
 
-    submit = () => {
+    submit = async () => {
         const {data, confirm} = this.state
+        const db =  await Firebase.firestore();
         if(data.password !== confirm){
             alert("tidak sama")
         }else{
-            console.log(data)
+            try{
+                await Firebase.auth()
+                .createUserWithEmailAndPassword(data.email, data.password)
+                .then(() => {
+                    this.props.history.push('/login');
+                    db.collection("users").add({data})    
+                })
+            }catch(er){
+                console.log(er)
+                alert("Something Wrong")
+            }  
         }
     }
+
+
 
     render() {
         const {template} = this.state
@@ -85,7 +102,7 @@ export default class Register extends Component {
                             return(
                                 <div className="form-item" key={i}>
                                     <span>{item.label}</span>
-                                    <input className="form-control" name={item.name} type="text" placeholder={item.label} />
+                                    <input className="form-control" name={item.name} onChange={this.inputHandler} type="text" placeholder={item.label} />
                                 </div>  
                             )
                         })}

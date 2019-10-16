@@ -9,20 +9,26 @@ export function makeActionCreator(type, ...argNames) {
 }
  
 const INITIAL_STATE = {
-   username: "",
+   username: {
+      name: ""
+   },
 }
 
 function handleAddUsername(state, payload){
    return {
       ...state,
-      username: payload.user
+      username: {
+         name: payload.user
+      }
    }
 }
 
 function handleLogOut(state){
    return {
       ...state,
-      username: ""
+      username: {
+         name: ""
+      }
    }
 }
  

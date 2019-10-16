@@ -42,14 +42,18 @@ class Login extends Component {
                     user(username);
                     this.props.history.push('/')
                 }) 
+                await Firebase.auth().onAuthStateChanged((au) => {
+                    console.log(au.refreshToken);
+                })
             }
-            catch{
-                alert("Email Atau Password Salah")
+            catch(error){
+                alert(error.message, error.code)
             }
         }
     }
 
     render() {
+        console.log(this.props.addUserName)
         return (
             <div className="container main-body">
                 <Navigator />

@@ -84,7 +84,7 @@ class MainNavigation extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    User: state.User.username
+    User: state.User.username.name
   }
 }
 

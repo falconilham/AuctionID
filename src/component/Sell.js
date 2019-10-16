@@ -24,11 +24,11 @@ class Sell extends Component {
 	}
 
 	componentDidMount = () =>{
-		// const {User} = this.props
-		// if(User === ""){
-		// 	alert("You Have to login")
-		// 	this.props.history.push('/login'); 
-		// }
+		const {User} = this.props
+		if(User === ""){
+		 	alert("You Have to login")
+		 	this.props.history.push('/login'); 
+		}
 		
 	}
 
@@ -39,7 +39,7 @@ class Sell extends Component {
 	}
 
 	uploadImage = () => {
-		const image = document.getElementById("image").files[0];
+		let image = document.getElementById("image").files[0];
 		const uploadTask = Storage.ref(`image/${image.name}`).put(image);
 		uploadTask.on('state_changed', 
 		(snapshot) => {
@@ -52,7 +52,7 @@ class Sell extends Component {
 		}, 
 		() => {
 			// complete function ....
-			Storage.ref('image').child(image.name).getDownloadURL().then(url => {
+			Storage.ref('image/products').child(image.name).getDownloadURL().then(url => {
 			    console.log(url);
 			    this.setState({
 			    	image: url
@@ -60,7 +60,6 @@ class Sell extends Component {
 			    this.checkData()
 			})
 		});
-		console.log(this.state.image.name)
 	}
 
 	checkData = async () => {
