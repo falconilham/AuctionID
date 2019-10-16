@@ -40,7 +40,6 @@ class Sell extends Component {
 
 	uploadImage = () => {
 		const image = document.getElementById("image").files[0];
-		console.log(image.name)
 		const uploadTask = Storage.ref(`image/${image.name}`).put(image);
 		uploadTask.on('state_changed', 
 		(snapshot) => {
@@ -58,10 +57,10 @@ class Sell extends Component {
 			    this.setState({
 			    	image: url
 			    });
+			    this.checkData()
 			})
 		});
 		console.log(this.state.image.name)
-		this.checkData()
 	}
 
 	checkData = async () => {
@@ -138,7 +137,7 @@ class Sell extends Component {
 		            						<form className="md-form">
 												<div className="file-field">
 													<div className="btn btn-primary btn-sm">
-														<input type="file" id="image" name="image" onChange={this.handler}/>
+														<input type="file" id="image"/>
 													</div>
 												</div>
 											</form>
