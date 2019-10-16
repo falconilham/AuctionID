@@ -67,7 +67,7 @@ class Home extends Component {
 
   render(){
     const { Data } = this.props
-
+    console.log(Data)
     return(
       <div className="container main-body">
         <Navigator />
@@ -76,13 +76,13 @@ class Home extends Component {
             return(
               <div className="col-sm card" key={i}>
                 <div>
-                  <img src={item.download_url} alt={i}/>
+                  <img src={item.image || 'http://via.placeholder.com/400x300'} alt={i}/>
                 </div>
                 <div>{item.author}</div>
                 <div className="detail-item">
                   <div className="price-item">
                     <p className="h6">Current Bid</p>
-                    Rp<span className="mb-0">20.000.000</span>
+                    Rp<span className="mb-0">{item.price}</span>
                   </div>
                   <div className="bid-timer">
                     <p className="h6">Time Remaining</p>

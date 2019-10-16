@@ -24,48 +24,53 @@ class Sell extends Component {
 	}
 
 	componentDidMount = () =>{
-		const {User} = this.props
-		if(User === ""){
-			alert("You Have to login")
-			this.props.history.push('/login'); 
-		}
+		// const {User} = this.props
+		// if(User === ""){
+		// 	alert("You Have to login")
+		// 	this.props.history.push('/login'); 
+		// }
 		
 	}
 
 	handler = (e) => {
 		this.setState({
 			[e.target.name]: e.target.value
-		})
+		})	
 	}
 
 	uploadImage = () => {
-		const {image} = this.state;
-		const uploadTask = Storage.ref(`images/${image}`).put(image);
-		uploadTask.on('state_changed',
+		const image = document.getElementById("image").files[0];
+		console.log(image.name)
+		const uploadTask = Storage.ref(`image/${image.name}`).put(image);
+		uploadTask.on('state_changed', 
 		(snapshot) => {
-        // progrss function ....
-	        const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-	        this.setState({progress});
-	        return true
-      	},
+			// progrss function ....
+			console.log("working")
+		}, 
 		(error) => {
-		   // error function ....
-			return false
-		},
+			// error function ....
+			console.log(error);
+		}, 
 		() => {
-        // complete function ....
-	        Storage.ref('images').child(image.name).getDownloadURL().then(url => {
-	            console.log(url);
-	        })
-    	}); 
+			// complete function ....
+			Storage.ref('image').child(image.name).getDownloadURL().then(url => {
+			    console.log(url);
+			    this.setState({
+			    	image: url
+			    });
+			})
+		});
+		console.log(this.state.image.name)
+		this.checkData()
 	}
 
 	checkData = async () => {
 		let data = this.state;
-		const db = Firebase.firestore();
+		const {User} =this.props
+		const db =  await Firebase.firestore();
 		try{
 			db.collection("products").add({
-				username : data.username,
+				username : User,
 				name : data.name,
 				price: data.price,
 				image: data.image,
@@ -74,18 +79,15 @@ class Sell extends Component {
 				region: data.region,
 				type: data.type
 			}).then(() => {
-				if(this.uploadImage){
-					this.props.history.push('/')
-				}else{
-					alert("error")
-				}
+				this.props.history.push('/')
 			});
-		}catch{
-			alert("Email Atau Password Salah")
+		}catch(er){
+			console.log(er)
         }
 	}
 
 	render() {
+		console.log(this.state)
 	    return (
 	        <div className="container main-body">
 	            <Navigator />
@@ -136,7 +138,7 @@ class Sell extends Component {
 		            						<form className="md-form">
 												<div className="file-field">
 													<div className="btn btn-primary btn-sm">
-														<input type="file" name="image" onChange={this.handler}/>
+														<input type="file" id="image" name="image" onChange={this.handler}/>
 													</div>
 												</div>
 											</form>
@@ -150,7 +152,7 @@ class Sell extends Component {
             					</div>
 	            				)
 		            		})}
-		            		<button type="button" onClick={this.checkData} className="btn btn-success">Upload Data</button>
+		            		<button type="button" onClick={this.uploadImage} className="btn btn-success">Upload Data</button>
 		            	</div>
 		            </div>
 	            </div>
