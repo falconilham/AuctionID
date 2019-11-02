@@ -40,7 +40,7 @@ $breakpoint-tablet: 600px;
 }
 .left-nav{
     display: $PrimaryDisplay;
-    grid-template-columns: 25% 25%;
+    grid-template-columns: 1fr 1fr;
     justify-items: center;
     justify-content: end;
     align-items: center;
@@ -124,6 +124,15 @@ $breakpoint-tablet: 600px;
 .card-body{
     display: grid;
     grid-row-gap: 15px
+}
+.my-awesome-placeholder{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-row-gap: 10px
+}
+.child-placeholder{
+    display: flex;
+    justify-content: space-between;
 }
 @media (max-width: 768px){
     .body{

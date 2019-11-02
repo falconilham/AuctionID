@@ -1,25 +1,27 @@
 import React, { Component } from 'react';
-import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import store from './store';
 import Home from './component/Home';
 import Register from './component/Register';
 import Login from './component/Login';
 import Sell from './component/Sell';
+//import { PersistGate } from 'redux-persist/integration/react'
 
 export default class App extends Component {
   render() {
+    // console.log(store, persistor)
     return (
-    <Provider store={store}>
-      <Router>
+    // <Provider store={store}>
+      // {<PersistGate loading={null} persistor={ persistor }>}
         <div id="app">
-          <Route exact path="/" component={Home} />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/sell" component={Sell} />
+          <Router>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/sell" component={Sell} />
+          </Router>
         </div>
-      </Router>
-    </Provider>
+      // {</PersistGate>}
+    // </Provider>
     );
   }
 }

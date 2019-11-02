@@ -9,7 +9,7 @@ class Sell extends Component {
 	constructor(){
 		super();
 		this.state = {
-			username : "ilham",
+			username : "",
 			name : "",
 			price: "",
 			image: "",
@@ -25,6 +25,9 @@ class Sell extends Component {
 
 	componentDidMount = () =>{
 		const {User} = this.props
+		this.setState({
+			username : User.name
+		})
 		if(User === ""){
 		 	alert("You Have to login")
 		 	this.props.history.push('/login'); 
@@ -40,11 +43,12 @@ class Sell extends Component {
 
 	uploadImage = () => {
 		let image = document.getElementById("image").files[0];
-		const uploadTask = Storage.ref(`image/${image.name}`).put(image);
+		console.log(image.name)
+		const uploadTask = Storage.ref(`image/products/${image.name}`).put(image);
 		uploadTask.on('state_changed', 
 		(snapshot) => {
 			// progrss function ....
-			console.log("working")
+			console.log(snapshot)
 		}, 
 		(error) => {
 			// error function ....

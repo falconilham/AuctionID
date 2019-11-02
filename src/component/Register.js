@@ -23,7 +23,6 @@ export default class Register extends Component {
 
     inputHandler = (e) => {
         let value = e.target.value;
-        let image = document.getElementById("image").files[0];
         let name = e.target.name;
         if(name === "confirm"){
             this.setState({
@@ -67,7 +66,6 @@ export default class Register extends Component {
             <div className="container main-body">
                 <Navigator />
                 <div className="card-header">
-                    <h4>Register</h4>
                 </div>
                 <div className="card">
                     <div className="card-header">

@@ -10,7 +10,7 @@ export function makeActionCreator(type, ...argNames) {
  
 const INITIAL_STATE = {
    username: {
-      name: ""
+      name: localStorage.getItem('user')
    },
 }
 

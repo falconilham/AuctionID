@@ -39,11 +39,12 @@ class Login extends Component {
             try {
                 await Firebase.auth().signInWithEmailAndPassword(username, password)
                 .then(() => {
+                    localStorage.setItem('user', username)
                     user(username);
                     this.props.history.push('/')
                 }) 
                 await Firebase.auth().onAuthStateChanged((au) => {
-                    console.log(au.refreshToken);
+                    
                 })
             }
             catch(error){
@@ -54,6 +55,9 @@ class Login extends Component {
 
     render() {
         console.log(this.props.addUserName)
+        const responseGoogle = (response) => {
+            console.log(response);
+        }
         return (
             <div className="container main-body">
                 <Navigator />
@@ -78,7 +82,9 @@ class Login extends Component {
                             <div className="SosMed">
                                 <GoogleLogin
                                     clientId="116312265922-ifu71n2jbp6mrl1751cla1t3vuldfedn.apps.googleusercontent.com"
-                                    />
+                                    onSuccess={responseGoogle}
+                                    onFailure={responseGoogle}
+                                />
                                 <FacebookLogin />
                             </div>
                         </div>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
+import * as firebase from "firebase";
 
 class MainNavigation extends Component {
   constructor(){
@@ -33,7 +34,18 @@ class MainNavigation extends Component {
   }
 
   componentDidmount = () => {
-    console.log(this.props.User)
+  }
+
+  signOut = () => {
+    firebase.auth().signOut().then(function() {
+    // Sign-out successful
+      console.log("sukses")
+      localStorage.removeItem('user')
+      window.location.reload(true);
+    }).catch(function(error) {
+      // An error happened.
+      console.log(error)
+    });
   }
 
   render() {
@@ -55,7 +67,7 @@ class MainNavigation extends Component {
               )
             })}
           </div>
-            {User === "" ? (
+            {User === null || User === undefined ? (
               <div className="left-nav">
                 {this.state.english.right.map((item, i) => {
                   return (
@@ -69,7 +81,12 @@ class MainNavigation extends Component {
               </div>
             ):(
               <div className="left-nav">
-                {User}
+                <div>
+                  {User}
+                </div>
+                <div onClick={this.signOut}>
+                  Sign Out
+                </div>
               </div>
             )}
         </div>
