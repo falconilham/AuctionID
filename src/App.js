@@ -4,6 +4,7 @@ import Home from './component/Home';
 import Register from './component/Register';
 import Login from './component/Login';
 import Sell from './component/Sell';
+import Search from './component/Search';
 //import { PersistGate } from 'redux-persist/integration/react'
 
 export default class App extends Component {
@@ -18,6 +19,7 @@ export default class App extends Component {
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/sell" component={Sell} />
+            <Route path="/search/:param" component={Search} />
           </Router>
         </div>
       // {</PersistGate>}

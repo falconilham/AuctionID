@@ -54,10 +54,15 @@ class Login extends Component {
     }
 
     render() {
-        console.log(this.props.addUserName)
+        const { addUserName } = this.props
+        console.log(this.props.User)
         const responseGoogle = (response) => {
+            let email = response && response.profileObj && response.profileObj.email
             console.log(response);
+            addUserName(email)
+            localStorage.setItem('user', email)
         }
+
         return (
             <div className="container main-body">
                 <Navigator />

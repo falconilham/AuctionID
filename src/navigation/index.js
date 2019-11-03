@@ -7,6 +7,7 @@ class MainNavigation extends Component {
   constructor(){
     super();
     this.state = {
+      search: "",
       english:{
         left : [
           {
@@ -50,6 +51,7 @@ class MainNavigation extends Component {
 
   render() {
     const {User} = this.props
+    const {search} = this.state
     return (
       <div className="header">
         <div className="logo">
@@ -91,8 +93,10 @@ class MainNavigation extends Component {
             )}
         </div>
         <div className="search">
-          <input className="form-control col-sm-3" type="text" placeholder="e.g Whatever is it" />
-          <button type="button" className="btn btn-light">Search</button>
+          <input className="form-control col-sm-3" type="text" placeholder="e.g Whatever is it" onChange={(e) => this.setState({search: e.target.value})}/>
+          <button type="button" className="btn btn-light">
+          <Link to={`/search/${search}`} params={{param : search}}>
+          Search</Link></button>
         </div>
       </div>  
     );
