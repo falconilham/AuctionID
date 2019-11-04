@@ -6,7 +6,6 @@ import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
 import { Link } from 'react-router-dom';
 import { Template } from './lang/Login';
-//import {Firebase} from ".././config/";
 import { Firebase } from '.././config'  
 
 class Login extends Component {
@@ -24,6 +23,14 @@ class Login extends Component {
         this.setState({
             [e.target.name] : e.target.value 
         })
+    }
+
+    componentDidMount(){
+        const {User} = this.props
+        console.log(User.name)
+        if(User.name !== null){
+            this.props.history.push('/')
+        }
     }
 
     checkData = async() => {
@@ -54,15 +61,14 @@ class Login extends Component {
     }
 
     render() {
-        const { addUserName } = this.props
-        console.log(this.props.User)
         const responseGoogle = (response) => {
+            const { addUserName } = this.props
             let email = response && response.profileObj && response.profileObj.email
-            console.log(response);
             addUserName(email)
             localStorage.setItem('user', email)
+            this.props.history.push('/')
         }
-
+        console.log(this)
         return (
             <div className="container main-body">
                 <Navigator />
@@ -104,6 +110,7 @@ class Login extends Component {
         );
     }
 }
+
 
 const mapDispatchToProps = (dispatch) => {
   return {

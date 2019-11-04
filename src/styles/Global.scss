@@ -127,8 +127,11 @@ $breakpoint-tablet: 600px;
 }
 .my-awesome-placeholder{
     display: grid;
-    grid-template-columns: 1fr;
-    grid-row-gap: 10px
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 10px
+}
+.text-row{
+    width: 100%
 }
 .child-placeholder{
     display: flex;

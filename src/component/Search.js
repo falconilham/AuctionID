@@ -31,14 +31,22 @@ class Search extends Component {
 		return(
 			<div className="container main-body">
         		<Navigator />
-				{result.map((item, i) => {
-					return(
-						<div key={i}>
-							<img src={item.image}  alt={i}/>
-							{item.name}
-						</div>
-					)
-				})}
+        		{result.length === 0 ? (
+        			<>
+        				<h4>Pencarian Kosong</h4>
+        			</>
+    			):(
+    				<>
+    					{result.map((item, i) => {
+							return(
+								<div key={i}>
+									<img src={item.image}  alt={i}/>
+									{item.name}
+								</div>
+							)
+						})}
+					</>
+    			)}
 			</div>
 		)
 	}

@@ -6,7 +6,7 @@ import Navigator from '.././navigation';
 import * as firebase from "firebase";
 import ReactPlaceholder from 'react-placeholder';
 import 'react-placeholder/lib/reactPlaceholder.css';
-import {TextBlock, MediaBlock, TextRow, RectShape, RoundShape} from 'react-placeholder/lib/placeholders';
+import {awesomePlaceholder} from './Loader';
 //import { Modal } from 'react-bootstrap';
 //import { TextBlock, MediaBlock, TextRow, RectShape, RoundShape } from 'react-placeholder';
 //import ReactPlaceholder from 'react-placeholder';
@@ -15,7 +15,7 @@ class Home extends Component {
   constructor(){
     super();
     this.state = {
-      page : 0,
+      page : null,
       isLoading: false,
     }
     this.getData.bind(this)
@@ -32,22 +32,19 @@ class Home extends Component {
     this.setState({
       isLoading: !this.state.isLoading
     })
-    let { page } = this.state
     let data_handler = [...Data]
     try{
       await firebase.firestore().collection('products').limit(3).get()
       .then(querySnapshot => {
-        console.log(querySnapshot.docs.length)
         if(querySnapshot.docs.length === 0){
           console.log("Belum Ada Data")
         }else{
           querySnapshot.docs.forEach(doc => {
-            console.log(doc)
             data_handler.push(doc.data());
           });
           addItem(data_handler)
           this.setState({
-            page: querySnapshot.docs.length
+            page: querySnapshot.docs.length - 1
           })
         }
       });
@@ -61,7 +58,7 @@ class Home extends Component {
 
   moreData = async() => {
     const { addItem, Data } = this.props
-    const {page, isLoading} = this.state
+    const {page} = this.state
     let data_handler = [...Data]
     let current = await firebase.firestore().collection('products').orderBy("name").startAfter(page).limit(3)
     try{
@@ -70,9 +67,7 @@ class Home extends Component {
         this.setState({
           page: querySnapshot.docs.length - 1
         })
-        console.log(querySnapshot)
         querySnapshot.docs.forEach(doc => {
-          console.log(doc)
           data_handler.push(doc.data());
         });
         addItem(data_handler)
@@ -94,8 +89,7 @@ class Home extends Component {
   }
 
   Loaded(){
-    const { Data } = this.props
-    const { isLoading, total } = this.state
+    const { total } = this.state
     let tai = this.props.Data
     this.setState({
       total : total + 1
@@ -109,22 +103,12 @@ class Home extends Component {
 
   render(){
     const { Data } = this.props
-    const { ready, isLoading } = this.state
-    const awesomePlaceholder = (
-      <div className='col-sm my-awesome-placeholder'>
-        <RectShape color='grey' style={{width: "100%", height: 120}}/>
-        <div className="child-placeholder">
-          <TextBlock style={{width: "100%", height: 30}} color='grey'/>
-          <TextBlock style={{width: "100%", height: 30}} color='grey'/>
-        </div>
-      </div>
-    );
-
+    const { isLoading } = this.state
     return(
       <div className="container main-body">
         <Navigator />
+        <ReactPlaceholder showLoadingAnimation ready={!isLoading} customPlaceholder={awesomePlaceholder}>
         <div className="body">
-          <ReactPlaceholder showLoadingAnimation ready={!isLoading} customPlaceholder={awesomePlaceholder} rows={5}>
             {(Data || []).map((item, i) => {
               return(
                 <div className="col-sm card" key={i}>
@@ -145,13 +129,14 @@ class Home extends Component {
                 </div>
               )
             })}
-          </ReactPlaceholder>
+          
           {this.state.isLoading === false ? (
             <button onClick={this.moreData} type="button" className="btn btn-light">More Item</button>
           ):(
             <button disabled type="button" className="btn btn-light">Loading</button>
           )}
         </div>
+        </ReactPlaceholder>
       </div>
     );
   }

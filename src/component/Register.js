@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import Navigator from '.././navigation';
+import { connect } from 'react-redux';
 import { Template } from './lang/Register';
 import {Firebase} from ".././config/";
+import FacebookLogin from 'react-facebook-login';
+import GoogleLogin from 'react-google-login';
+import {responseGoogle} from './Auth';
 
-export default class Register extends Component {
+class Register extends Component {
     constructor(){
         super()
         this.state = {
@@ -20,6 +24,14 @@ export default class Register extends Component {
         this.inputHandler.bind(this);
         this.submit.bind(this);
     }
+
+    componentDidMount(){
+        const {User} = this.props
+        if(User.name !== null){
+            this.props.history.push('/')
+        }
+    }
+
 
     inputHandler = (e) => {
         let value = e.target.value;
@@ -104,6 +116,14 @@ export default class Register extends Component {
                                 </div>  
                             )
                         })}
+                        <div className="SosMed">
+                            <GoogleLogin
+                                clientId="116312265922-ifu71n2jbp6mrl1751cla1t3vuldfedn.apps.googleusercontent.com"
+                                onSuccess={responseGoogle}
+                                onFailure={responseGoogle}
+                            />
+                            <FacebookLogin />
+                        </div>      
                     </div>
                 </div>
                 <button type="button" onClick={this.submit} className="btn btn-primary">Register Now</button>
@@ -111,3 +131,11 @@ export default class Register extends Component {
         );
     }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    User: state.User.username
+  }
+}
+
+export default connect(mapStateToProps)(Register)

@@ -28,9 +28,9 @@ class Sell extends Component {
 		this.setState({
 			username : User.name
 		})
-		if(User === ""){
+		if(User.name === "" || User.name === null){
 		 	alert("You Have to login")
-		 	this.props.history.push('/login'); 
+		 	this.props.history.push('/login');
 		}
 		
 	}
@@ -89,7 +89,7 @@ class Sell extends Component {
 	}
 
 	render() {
-		console.log(this.state)
+		console.log(this)
 	    return (
 	        <div className="container main-body">
 	            <Navigator />
