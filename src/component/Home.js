@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addUserName } from '../reducer/User';
+import {Link} from 'react-router-dom';
 import { addItem } from '../reducer/Data';
 import Navigator from '.././navigation'; 
 import * as firebase from "firebase";
@@ -40,7 +41,10 @@ class Home extends Component {
           console.log("Belum Ada Data")
         }else{
           querySnapshot.docs.forEach(doc => {
-            data_handler.push(doc.data());
+            const {id} = doc
+            const data = doc.data() 
+            let mergeData = {id, ...data}
+            data_handler.push(mergeData);
           });
           addItem(data_handler)
           this.setState({
@@ -61,19 +65,26 @@ class Home extends Component {
     const {page} = this.state
     let data_handler = [...Data]
     let current = await firebase.firestore().collection('products').orderBy("name").startAfter(page)
+    this.setState({
+      isLoading: true
+    })
     try{
       current.get()
       .then(querySnapshot => {
-        this.setState({
-          page: querySnapshot.docs.length - 1
-        })
         querySnapshot.docs.forEach(doc => {
           data_handler.push(doc.data());
         });
         addItem(data_handler)
+        this.setState({
+          page: querySnapshot.docs.length - 1,
+          isLoading: false
+        })
       })
     }catch(error){
       console.log(error)
+      this.setState({
+        isLoading: false
+      })
     }
   }
 
@@ -104,39 +115,42 @@ class Home extends Component {
   render(){
     const { Data } = this.props
     const { isLoading } = this.state
+    console.log(Data)
     return(
       <div className="container main-body">
         <Navigator />
-        <ReactPlaceholder showLoadingAnimation ready={!isLoading} customPlaceholder={awesomePlaceholder}>
         <div className="body">
             {(Data || []).map((item, i) => {
               return(
-                <div className="col-sm card" key={i}>
-                  <div>
-                    <img src={item.image} onLoad={() => this.Loaded()}  alt={i}/>
-                  </div>
-                  <div>{item.author}</div>
-                  <div className="detail-item">
-                    <div className="price-item">
-                      <p className="h6">Current Bid</p>
-                      Rp<span className="mb-0">{item.price}</span>
+                <Link to={`/item/${item.id}`} params={{param : item.id}} key={i} style={{ textDecoration: 'none', color: "black" }}>
+                  <div className="col-sm card" key={i}>
+                    <div>
+                      <img src={item.image} onLoad={() => this.Loaded()}  alt={i}/>
                     </div>
-                    <div className="bid-timer">
-                      <p className="h6">Time Remaining</p>
-                      <span className="h6">7 Days</span>
+                    <div>{item.author}</div>
+                    <div className="detail-item">
+                      <div className="price-item">
+                        <p className="h6">Current Bid</p>
+                        Rp<span className="mb-0">{item.price}</span>
+                      </div>
+                      <div className="bid-timer">
+                        <p className="h6">Time Remaining</p>
+                        <span className="h6">7 Days</span>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               )
             })}
-          
-          {this.state.isLoading === false ? (
-            <button onClick={this.moreData} type="button" className="btn btn-light">More Item</button>
-          ):(
-            <button disabled type="button" className="btn btn-light">Loading</button>
-          )}
         </div>
+        <ReactPlaceholder showLoadingAnimation ready={!isLoading} customPlaceholder={awesomePlaceholder}>
+          <div></div>
         </ReactPlaceholder>
+        {isLoading === false ? (
+          <button onClick={this.moreData} type="button" className="btn btn-light">More Item</button>
+        ):(
+          <button disabled type="button" className="btn btn-light">Loading</button>
+        )}
       </div>
     );
   }
