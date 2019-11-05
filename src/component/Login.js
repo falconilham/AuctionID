@@ -17,6 +17,7 @@ class Login extends Component {
         }
         this.checkData.bind(this);
         this.inputHandler.bind(this);
+        this.responseGoogle.bind(this);
     }     
 
     inputHandler = (e) => {
@@ -49,9 +50,6 @@ class Login extends Component {
                     localStorage.setItem('user', username)
                     user(username);
                     this.props.history.push('/')
-                }) 
-                await Firebase.auth().onAuthStateChanged((au) => {
-                    
                 })
             }
             catch(error){
@@ -60,14 +58,16 @@ class Login extends Component {
         }
     }
 
+    responseGoogle = (response) => {
+        const { addUserName } = this.props
+        let name = response && response.profileObj && response.profileObj.name
+        addUserName(name)
+        localStorage.setItem('user', name)
+        this.props.history.push('/')      
+        console.log(response)
+    }
+
     render() {
-        const responseGoogle = (response) => {
-            const { addUserName } = this.props
-            let email = response && response.profileObj && response.profileObj.email
-            addUserName(email)
-            localStorage.setItem('user', email)
-            this.props.history.push('/')
-        }
         console.log(this)
         return (
             <div className="container main-body">
@@ -93,8 +93,8 @@ class Login extends Component {
                             <div className="SosMed">
                                 <GoogleLogin
                                     clientId="116312265922-ifu71n2jbp6mrl1751cla1t3vuldfedn.apps.googleusercontent.com"
-                                    onSuccess={responseGoogle}
-                                    onFailure={responseGoogle}
+                                    onSuccess={this.responseGoogle}
+                                    onFailure={this.responseGoogle}
                                 />
                                 <FacebookLogin />
                             </div>

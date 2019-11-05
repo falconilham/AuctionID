@@ -34,7 +34,7 @@ class Home extends Component {
     })
     let data_handler = [...Data]
     try{
-      await firebase.firestore().collection('products').limit(3).get()
+      await firebase.firestore().collection('products').get()
       .then(querySnapshot => {
         if(querySnapshot.docs.length === 0){
           console.log("Belum Ada Data")
@@ -60,7 +60,7 @@ class Home extends Component {
     const { addItem, Data } = this.props
     const {page} = this.state
     let data_handler = [...Data]
-    let current = await firebase.firestore().collection('products').orderBy("name").startAfter(page).limit(3)
+    let current = await firebase.firestore().collection('products').orderBy("name").startAfter(page)
     try{
       current.get()
       .then(querySnapshot => {

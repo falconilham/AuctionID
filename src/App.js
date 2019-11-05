@@ -9,10 +9,6 @@ import Search from './component/Search';
 
 export default class App extends Component {
 
-  componentDidMount(){
-    console.clear()
-  }
-
   render() {
     // console.log(store, persistor)
     return (

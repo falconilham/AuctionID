@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Navigator from '.././navigation';
 import { connect } from 'react-redux';
 import { Template } from './lang/Register';
+import { addUserName } from '../reducer/User';
 import {Firebase} from ".././config/";
 import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
@@ -23,6 +24,7 @@ class Register extends Component {
         }
         this.inputHandler.bind(this);
         this.submit.bind(this);
+        this.responseGoogle.bind(this);
     }
 
     componentDidMount(){
@@ -70,6 +72,14 @@ class Register extends Component {
         }
     }
 
+    responseGoogle = (response) => {
+        const { addUserName } = this.props
+        let name = response && response.profileObj && response.profileObj.name
+        addUserName(name)
+        localStorage.setItem('user', name)
+        this.props.history.push('/')      
+        console.log(response)
+    }
 
 
     render() {
@@ -119,8 +129,8 @@ class Register extends Component {
                         <div className="SosMed">
                             <GoogleLogin
                                 clientId="116312265922-ifu71n2jbp6mrl1751cla1t3vuldfedn.apps.googleusercontent.com"
-                                onSuccess={responseGoogle}
-                                onFailure={responseGoogle}
+                                onSuccess={this.responseGoogle}
+                                onFailure={this.responseGoogle}
                             />
                             <FacebookLogin />
                         </div>      
@@ -138,4 +148,12 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(Register)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addUserName: username => {
+       dispatch(addUserName(username))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register)
