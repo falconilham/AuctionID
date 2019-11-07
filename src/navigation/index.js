@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as firebase from "firebase";
 
@@ -32,9 +32,22 @@ class MainNavigation extends Component {
       },
       username: ""
     }
+    this.search.bind(this);
   }
 
   componentDidmount = () => {
+  }
+
+  search = (e) => {
+    e.preventDefault()
+    const { pathname } = this && this.props && this.props.location
+    const { search } = this.state
+    if( search === ""){
+      alert("tidak boleh kosong")
+    }else if(pathname === '/search/'+search){
+    }else{
+      this.props.history.push('/search/'+search)
+    }
   }
 
   signOut = () => {
@@ -92,12 +105,10 @@ class MainNavigation extends Component {
               </div>
             )}
         </div>
-        <div className="search">
+        <form className="search" onSubmit={this.search}>
           <input className="form-control col-sm-3" type="text" placeholder="e.g Whatever is it" onChange={(e) => this.setState({search: e.target.value})}/>
-          <button type="button" className="btn btn-light">
-          <Link to={`/search/${search}`} params={{param : search}}>
-          Search</Link></button>
-        </div>
+          <input type="submit" className="btn btn-light" />
+        </form>
       </div>  
     );
   }
@@ -109,4 +120,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(MainNavigation)
+export default withRouter(connect(mapStateToProps)(MainNavigation))

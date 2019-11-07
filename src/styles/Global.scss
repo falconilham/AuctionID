@@ -125,6 +125,15 @@ $breakpoint-tablet: 600px;
     display: grid;
     grid-row-gap: 15px
 }
+.body-left, .body-right{
+    display: grid;
+    grid-row-gap: 15px 
+}
+.item-detail-body{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px
+}
 .my-awesome-placeholder{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -134,8 +143,60 @@ $breakpoint-tablet: 600px;
     width: 100%
 }
 .child-placeholder{
-    display: flex;
+    display: $SecondaryDisplay;
     justify-content: space-between;
+}
+.item-body{
+    display: $PrimaryDisplay;
+    grid-template-columns: 40% 1fr;
+    grid-gap: 10px
+}
+.item-detail-head {
+    display: $SecondaryDisplay;
+    justify-content: space-between;        
+    align-items: center;    
+}
+.stat{
+    padding: 10px;
+    background-color: #5bc0de;
+    color: white;
+    border-radius: 10px;
+}
+.Price > span:last-child{
+    color: green;
+}
+.quick-bid{
+    color: white;
+}
+.submit{
+    display: grid;
+    grid-template-columns: 50% 40%;
+    justify-content: space-between;
+}
+.text-or{
+    border-bottom: 1px solid #ebebeb;
+    color: #999;
+    font-style: italic;
+    font-weight: bold;
+    line-height: 0.1em;
+    margin: 10px 0 15px;
+    padding: -5px;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
+}
+.detail__action-link{
+    position: relative;
+    border: 1px solid #ebebeb;
+    font-weight: bold;
+    display: block;
+    padding: 10px;
+}
+.detail__action-link-count{
+    display: block;
+    color: #555;
+    font-size: 12px;
+    padding-bottom: 10px;
 }
 @media (max-width: 768px){
     .body{

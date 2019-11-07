@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addUserName } from '../reducer/User';
-import Navigator from '.././navigation';
 import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
 import { Link } from 'react-router-dom';
@@ -70,8 +69,7 @@ class Login extends Component {
     render() {
         console.log(this)
         return (
-            <div className="container main-body">
-                <Navigator />
+            <div className="main-body">
                 <div className="Main-Login">
                     <div className="login-form">
                         <div className="card">

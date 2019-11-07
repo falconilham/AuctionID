@@ -85,8 +85,7 @@ class Register extends Component {
     render() {
         const {template} = this.state
         return (
-            <div className="container main-body">
-                <Navigator />
+            <div className="main-body">
                 <div className="card-header">
                 </div>
                 <div className="card">

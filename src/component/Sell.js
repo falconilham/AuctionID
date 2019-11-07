@@ -91,8 +91,7 @@ class Sell extends Component {
 	render() {
 		console.log(this)
 	    return (
-	        <div className="container main-body">
-	            <Navigator />
+	        <div className="main-body">
 	            <div className="body-sells">
 		            <div className="card-header">
 		            	<h5>Create Listing</h5>

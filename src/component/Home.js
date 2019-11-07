@@ -115,10 +115,9 @@ class Home extends Component {
   render(){
     const { Data } = this.props
     const { isLoading } = this.state
-    console.log(Data)
+    console.log(this.props)
     return(
-      <div className="container main-body">
-        <Navigator />
+      <div className="main-body">
         <div className="body">
             {(Data || []).map((item, i) => {
               return(

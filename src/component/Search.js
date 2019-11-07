@@ -23,6 +23,7 @@ class Search extends Component {
 				result : current
 			})
 		})
+		console.log(this.props)
 	}
 
 	render(){
@@ -30,7 +31,6 @@ class Search extends Component {
 		console.log(result)
 		return(
 			<div className="container main-body">
-        		<Navigator />
         		{result.length === 0 ? (
         			<>
         				<h4>Pencarian Kosong</h4>
